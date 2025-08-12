@@ -6,6 +6,21 @@ Track Quest is a smart, beginner-friendly web application designed to help users
 
 Whether you're completely new or unsure where to start, Track Quest gives you personalized guidance and a clear roadmap to follow.
 
+🧩 Page Structure Overview:
+
+- Home Page:
+  Displays the project name Track Quest, a brief description, a list of available tech tracks, and a Start Quiz button Users can start the quiz via the Start 
+  Quiz button or directly select a track from the list to view its roadmap.  
+
+ - Quiz Page:  
+   Contains 20 detailed multiple-choice questions focused on the user's interests, skills, and understanding in tech fields. Upon submission, it analyzes answers 
+   and suggests the most suitable learning track tailored to the user's profile.
+
+- Roadmap Page:  
+  Presents a step-by-step dynamic roadmap for the chosen track, whether selected directly or via quiz results. Each step is collapsible to reveal more details and 
+  includes a Mark as Done button to track progress. User progress is saved for returning visits.  
+  A Back to Home button allows users to restart the quiz or pick another track.
+
 🧩 How It Works
 
 1. 🎯 Take the Quiz  
