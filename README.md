@@ -1,4 +1,4 @@
-# Track-Quest-Navigate-Your-Perfect-Tech-Track
+# Track-Quest
 
 🚀 Track Quest – Navigate Your Perfect Tech Track
 
@@ -56,7 +56,9 @@ Whether you're completely new or unsure where to start, Track Quest gives you pe
 
 - HTML  
 - CSS  
-- Vanilla JavaScript (ES6)
+- Vanilla JavaScript
+
+
 
 
 
