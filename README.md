@@ -39,7 +39,7 @@ Whether you're completely new or unsure where to start, Track Quest gives you pe
 - DevOps  
 - Game Development  
 - UI/UX Design
-- 
+ 
 
 💡 Features
 
@@ -57,6 +57,24 @@ Whether you're completely new or unsure where to start, Track Quest gives you pe
 - HTML  
 - CSS  
 - Vanilla JavaScript
+
+🌐 Live Demo
+
+👉 [Try Track Quest Live](https://bothinaelhaw.github.io/Track-Quest/)
+
+
+
+📁 Run Locally
+
+bash
+git clone https://github.com/yourusername/track-quest.git
+cd track-quest
+open index.html  # or open in your browser
+
+
+🎯 Goal
+
+Help beginners in tech find clarity in their learning journey with an engaging and user-friendly experience.
 
 
 
