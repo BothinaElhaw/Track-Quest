@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Find Your Learning Track</title>
+<style>
+  body {
+  font-family: Arial, sans-serif;
+  max-width: 900px; 
+  margin: 30px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  color: #333;
+  font-size: 1.2rem; 
+}
+
+h1 {
+  color: #0c63bf;
+  text-align: center;
+  font-size: 2.5rem; 
+}
+
+form {
+  margin-top: 30px;
+}
+
+.question {
+  background: #cce0ee;
+  padding: 20px; 
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.question p {
+  font-weight: bold;
+  font-size: 1.4rem; 
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 1.2rem; 
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+  transform: scale(1.2); 
+}
+
+button, #viewRoadmapBtn {
+  background-color: #0c63bf;
+  border: none;
+  color: white;
+  padding: 15px 40px; 
+  border-radius: 8px;
+  font-size: 1.3rem; 
+  cursor: pointer;
+  display: block;
+  margin: 30px auto 0;
+}
+
+button:hover, #viewRoadmapBtn:hover {
+  background-color: #0c1ebf;
+}
+
+#result {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 1.8rem; /* تكبير النص */
+  color: #0c63bf;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+  <h1>Discover Your Best Learning Track</h1>
+  <form id="quizForm"></form>
+  <button id="submitBtn">Find My Track</button>
+  <div id="result"></div>
+  <button id="viewRoadmapBtn" style="display:none;">View Roadmap</button>
+
+<script>
+const questions = [
+  { q: "What do you like to work with the most?", options: { a: { text: "Designing app interfaces", track: "UI/UX Design" }, b: { text: "Writing server code", track: "Backend Development" }, c: { text: "Working with data and analysis", track: "Data Science" }, d: { text: "Building smart AI systems", track: "Machine Learning" } } },
+  { q: "Which of these interests you more?", options: { a: { text: "Colors and layouts", track: "UI/UX Design" }, b: { text: "Making websites work fast", track: "Backend Development" }, c: { text: "Finding useful info from numbers", track: "Data Science" }, d: { text: "Teaching computers to learn", track: "Machine Learning" } } },
+  { q: "If you pick a hobby, what would it be?", options: { a: { text: "Drawing and designing", track: "UI/UX Design" }, b: { text: "Fixing computer problems", track: "Backend Development" }, c: { text: "Studying numbers and charts", track: "Data Science" }, d: { text: "Creating smart robots", track: "Machine Learning" } } },
+  { q: "What do you like to see in apps?", options: { a: { text: "Nice and easy-to-use design", track: "UI/UX Design" }, b: { text: "Fast and reliable performance", track: "Backend Development" }, c: { text: "Clear and organized information", track: "Data Science" }, d: { text: "Smart and interactive features", track: "Machine Learning" } } },
+  { q: "How do you prefer to work?", options: { a: { text: "Design things people see", track: "UI/UX Design" }, b: { text: "Write code behind the scenes", track: "Backend Development" }, c: { text: "Work with numbers and data", track: "Data Science" }, d: { text: "Develop intelligent systems", track: "Machine Learning" } } },
+  { q: "What type of projects do you enjoy?", options: { a: { text: "Designing websites and apps", track: "UI/UX Design" }, b: { text: "Building databases and servers", track: "Backend Development" }, c: { text: "Analyzing data to make decisions", track: "Data Science" }, d: { text: "Creating programs that learn", track: "Machine Learning" } } },
+  { q: "Which skill do you want to improve?", options: { a: { text: "Drawing and colors", track: "UI/UX Design" }, b: { text: "Fixing backend problems", track: "Backend Development" }, c: { text: "Understanding data", track: "Data Science" }, d: { text: "Artificial Intelligence", track: "Machine Learning" } } },
+  { q: "How do you like to learn new things?", options: { a: { text: "By designing and trying", track: "UI/UX Design" }, b: { text: "By coding and practicing", track: "Backend Development" }, c: { text: "By reading and analyzing data", track: "Data Science" }, d: { text: "By building smart models", track: "Machine Learning" } } },
+  { q: "How do you solve problems?", options: { a: { text: "Creatively and visually", track: "UI/UX Design" }, b: { text: "Logically and step-by-step", track: "Backend Development" }, c: { text: "Using numbers and data", track: "Data Science" }, d: { text: "By experimenting with models", track: "Machine Learning" } } },
+  { q: "How do you feel when you create a nice design?", options: { a: { text: "Happy and proud", track: "UI/UX Design" }, b: { text: "Technically satisfied", track: "Backend Development" }, c: { text: "Enjoy discovering new info", track: "Data Science" }, d: { text: "Excited about smart systems", track: "Machine Learning" } } },
+  { q: "Do you like working in teams?", options: { a: { text: "Yes, with designers and artists", track: "UI/UX Design" }, b: { text: "Yes, with other developers", track: "Backend Development" }, c: { text: "Yes, with data experts", track: "Data Science" }, d: { text: "Yes, with AI researchers", track: "Machine Learning" } } },
+  { q: "What kind of math do you like?", options: { a: { text: "Simple basics", track: "UI/UX Design" }, b: { text: "Logical math", track: "Backend Development" }, c: { text: "Statistics and probability", track: "Data Science" }, d: { text: "Linear algebra and calculus", track: "Machine Learning" } } },
+  { q: "Do you prefer working with numbers or shapes?", options: { a: { text: "Shapes and colors", track: "UI/UX Design" }, b: { text: "Writing backend code", track: "Backend Development" }, c: { text: "Numbers and data", track: "Data Science" }, d: { text: "Building smart systems", track: "Machine Learning" } } },
+  { q: "What type of apps do you like?", options: { a: { text: "Apps with nice design and easy use", track: "UI/UX Design" }, b: { text: "Fast and powerful apps", track: "Backend Development" }, c: { text: "Apps showing useful data", track: "Data Science" }, d: { text: "Smart apps that learn", track: "Machine Learning" } } },
+  { q: "How do you describe your learning style?", options: { a: { text: "Learning by designing and doing", track: "UI/UX Design" }, b: { text: "Learning by coding and building", track: "Backend Development" }, c: { text: "Learning by analyzing data", track: "Data Science" }, d: { text: "Learning by creating smart models", track: "Machine Learning" } } },
+  { q: "What do you like most about technology?", options: { a: { text: "Beauty and ease of use", track: "UI/UX Design" }, b: { text: "Speed and power", track: "Backend Development" }, c: { text: "Understanding and insights", track: "Data Science" }, d: { text: "Smartness and self-learning", track: "Machine Learning" } } },
+  { q: "What type of work suits you?", options: { a: { text: "Designing interfaces and colors", track: "UI/UX Design" }, b: { text: "Programming servers and databases", track: "Backend Development" }, c: { text: "Analyzing and interpreting data", track: "Data Science" }, d: { text: "Developing intelligent systems", track: "Machine Learning" } } },
+  { q: "How do you approach problems?", options: { a: { text: "Creatively and visually", track: "UI/UX Design" }, b: { text: "Logically and organized", track: "Backend Development" }, c: { text: "Using numbers and data", track: "Data Science" }, d: { text: "Trying different models", track: "Machine Learning" } } },
+  { q: "Do you like learning new things often?", options: { a: { text: "Yes, I love design and creativity", track: "UI/UX Design" }, b: { text: "Yes, I enjoy coding and development", track: "Backend Development" }, c: { text: "Yes, I like exploring data", track: "Data Science" }, d: { text: "Yes, I’m fascinated by AI", track: "Machine Learning" } } },
+  { q: "What is your dream project?", options: { a: { text: "Designing a cool app", track: "UI/UX Design" }, b: { text: "Building a strong system", track: "Backend Development" }, c: { text: "Analyzing big data", track: "Data Science" }, d: { text: "Creating a self-learning program", track: "Machine Learning" } } }
+];
+
+
+const form = document.getElementById('quizForm');
+const submitBtn = document.getElementById('submitBtn');
+const resultDiv = document.getElementById('result');
+const viewRoadmapBtn = document.getElementById('viewRoadmapBtn');
+
+questions.forEach((question, i) => {
+  const div = document.createElement('div');
+  div.className = "question";
+
+  let html = `<p><b>Question ${i+1}:</b> ${question.q}</p>`;
+  for(const key in question.options) {
+    const option = question.options[key];
+    html += `
+      <label>
+        <input type="radio" name="q${i}" value="${option.track}" required />
+        ${option.text}
+      </label>
+    `;
+  }
+
+  div.innerHTML = html;
+  form.appendChild(div);
+});
+
+submitBtn.addEventListener('click', e => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const scores = {};
+
+  for(let i = 0; i < questions.length; i++) {
+    const track = formData.get(`q${i}`);
+    if(!track) {
+      alert("Please answer all questions.");
+      return;
+    }
+    scores[track] = (scores[track] || 0) + 1;
+  }
+
+  let maxTrack = null;
+  let maxScore = 0;
+  for(const track in scores) {
+    if(scores[track] > maxScore) {
+      maxScore = scores[track];
+      maxTrack = track;
+    }
+  }
+
+  resultDiv.textContent = `Your best learning track is: ${maxTrack}`;
+  viewRoadmapBtn.style.display = 'block';
+
+  viewRoadmapBtn.onclick = () => {
+    window.location.href = `roadmap.html?track=${encodeURIComponent(maxTrack)}`;
+  };
+
+});
+</script>
+
+</body>
+</html>

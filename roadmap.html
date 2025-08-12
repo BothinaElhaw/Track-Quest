@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Learning Roadmap - Circles with Zigzag Lines</title>
+<style>
+  body {
+  font-family: Arial, sans-serif;
+  max-width: 1200px; 
+  margin: 20px auto;
+  padding: 15px;
+  background: #f0f0f0;
+  color: #333;
+}
+  h1 {
+    color: #0c63bf;
+    text-align: center;
+  }
+  #trackName {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 40px;
+    font-weight: bold;
+  }
+  #roadmapContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 40px 30px 80px 30px; 
+  position: relative;
+  align-items: center;
+  gap: 70px; 
+  min-height: 280px; 
+}
+  .step {
+    position: relative;
+    flex: 0 0 150px; 
+    height: 150px;
+    background:#cce0ee;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+  }
+  .step:last-child {
+    margin-right: 0;
+  }
+  .step.done {
+    background-color: #c8e6c9;
+  }
+  .step:hover {
+    background-color: #ccd8ee;
+  }
+  
+  #roadmapContainer::before {
+    content: "";
+    position: absolute;
+    top: 75px; 
+    left: 75px;
+    right: 75px;
+    height: 6px; 
+    background: repeating-linear-gradient(
+      45deg,
+      #0c63bf,
+      #0c63bf 10px,
+      transparent 10px,
+      transparent 20px
+    );
+    z-index: 0;
+  }
+  
+  .step-details {
+    max-width: 300px; 
+    background: #cce0ee;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: normal;
+    color: #555;
+    display: none;
+    position: absolute;
+    top: 170px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  .step.active .step-details {
+    display: block;
+  }
+  .doneBtn {
+    margin-top: 12px;
+    background-color: #0c63bf;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .doneBtn:disabled {
+    background-color: #c8e6c9;
+    cursor: default;
+  }
+  #backBtn {
+    display: block;
+    margin: 20px auto;
+    background-color: #0c63bf;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Your Learning Roadmap</h1>
+<div id="trackName"></div>
+<div id="roadmapContainer"></div>
+<button id="backBtn">Back to Home</button>
+
+<script>
+const roadmaps = {
+  "Frontend Development": [
+    { step: "Learn HTML & CSS basics", details: "Understand the structure of web pages with HTML and style them using CSS, including tags, attributes, selectors, and basic layouts." },
+    { step: "Understand Flexbox & Grid", details: "Master modern CSS layout techniques with Flexbox and Grid to create responsive and flexible designs." },
+    { step: "Learn JavaScript fundamentals", details: "Get familiar with variables, data types, functions, loops, and events to add interactivity to web pages." },
+    { step: "Practice DOM manipulation", details: "Use JavaScript to dynamically change the content, structure, and style of your web pages." },
+    { step: "Learn a frontend framework (e.g., React)", details: "Explore frameworks like React to build complex, efficient, and maintainable user interfaces." },
+    { step: "Understand version control with Git", details: "Learn how to track changes in your projects and collaborate using Git." },
+    { step: "Deploy your websites", details: "Host your projects online using services like GitHub Pages, Netlify, or Vercel." }
+  ],
+  "Backend Development": [
+    { step: "Understand server-client model", details: "Learn how servers and clients communicate over the internet." },
+    { step: "Learn Node.js or Python", details: "Choose a backend language and master its basics and syntax." },
+    { step: "Handle APIs and Routing", details: "Learn to create and manage API endpoints and routes for your backend." },
+    { step: "Work with databases", details: "Understand SQL and NoSQL databases and how to store/retrieve data." },
+    { step: "Authentication & security basics", details: "Implement user authentication and understand basic security concepts." },
+    { step: "Learn server deployment", details: "Deploy backend applications on cloud services like AWS or Heroku." },
+    { step: "Monitor and optimize backend", details: "Learn tools for logging, monitoring, and improving server performance." }
+  ],
+  "Full Stack Development": [
+    { step: "Cover frontend & backend basics", details: "Get the fundamentals of both frontend and backend development." },
+    { step: "Connect frontend to backend", details: "Learn how to link frontend UI with backend APIs." },
+    { step: "Learn MVC structure", details: "Understand the Model-View-Controller design pattern." },
+    { step: "Deploy full stack app", details: "Host your applications online using platforms like Heroku or Netlify." },
+    { step: "Understand REST APIs", details: "Create and consume RESTful APIs in your projects." },
+    { step: "Implement authentication & security", details: "Secure your full stack app with user authentication." },
+    { step: "Optimize performance and scalability", details: "Improve app speed and handle growing users efficiently." }
+  ],
+  "Artificial Intelligence": [
+    { step: "Understand what AI is", details: "Learn the basics and history of Artificial Intelligence." },
+    { step: "Learn basic Python", details: "Master Python programming as a foundation." },
+    { step: "Understand neural networks", details: "Dive into the concepts of neural networks and deep learning." },
+    { step: "Explore tools like TensorFlow", details: "Use popular AI libraries and frameworks." },
+    { step: "Practice AI mini-projects", details: "Build simple AI applications to apply your knowledge." },
+    { step: "Learn about NLP and Computer Vision", details: "Explore Natural Language Processing and image recognition." },
+    { step: "Study AI ethics and fairness", details: "Understand ethical considerations in AI development." }
+  ],
+  "Machine Learning": [
+    { step: "Learn Python & libraries (NumPy, Pandas)", details: "Master Python and libraries used for data manipulation and analysis." },
+    { step: "Understand supervised vs unsupervised learning", details: "Learn the difference between learning with labeled data and without." },
+    { step: "Learn regression, classification, clustering", details: "Study common machine learning algorithms and when to use them." },
+    { step: "Apply scikit-learn", details: "Use the scikit-learn library to build and evaluate ML models." },
+    { step: "Build ML models", details: "Create real-world machine learning projects and improve model performance." },
+    { step: "Explore deep learning basics", details: "Get introduced to neural networks and deep learning concepts." },
+    { step: "Work on real datasets", details: "Practice with datasets like Kaggle competitions and open data." }
+  ],
+  "Data Science": [
+    { step: "Master Python basics", details: "Learn Python programming focused on data science tasks." },
+    { step: "Data cleaning & preprocessing", details: "Prepare raw data for analysis by cleaning and formatting." },
+    { step: "Learn EDA & visualization", details: "Perform exploratory data analysis and visualize data trends." },
+    { step: "Apply ML models", details: "Use machine learning models to extract insights." },
+    { step: "Work on datasets & projects", details: "Practice with real datasets and complete projects." },
+    { step: "Learn SQL for data querying", details: "Use SQL to extract and manipulate data from databases." },
+    { step: "Build dashboards & reports", details: "Create interactive dashboards for data presentation." }
+  ],
+  "Data Analysis": [
+    { step: "Learn Excel/Google Sheets", details: "Use spreadsheets for basic data organization and calculations." },
+    { step: "SQL basics", details: "Query databases to extract meaningful data." },
+    { step: "Python for analysis", details: "Use Python libraries for data analysis." },
+    { step: "Data visualization (Matplotlib/Seaborn)", details: "Create charts and plots to visualize data." },
+    { step: "Build analysis reports", details: "Compile your findings into comprehensive reports." },
+    { step: "Understand business metrics", details: "Learn key performance indicators and metrics." },
+    { step: "Use Power BI or Tableau", details: "Create visualizations with popular BI tools." }
+  ],
+  "DevOps": [
+    { step: "Understand CI/CD", details: "Learn Continuous Integration and Continuous Deployment concepts." },
+    { step: "Learn Docker", details: "Use Docker to containerize applications." },
+    { step: "Basics of Linux and servers", details: "Understand operating systems and server management." },
+    { step: "Use Git & GitHub", details: "Version control your projects and collaborate." },
+    { step: "Deploy apps on cloud (e.g., AWS)", details: "Host and manage apps using cloud services." },
+    { step: "Monitor infrastructure", details: "Set up monitoring and alerts for your services." },
+    { step: "Automate with scripting", details: "Use scripts to automate routine DevOps tasks." }
+  ],
+  "UI/UX Design": [
+    { step: "Understand design principles", details: "Learn about layout, color theory, and typography." },
+    { step: "Learn wireframing tools (Figma)", details: "Design app and website blueprints using Figma." },
+    { step: "Color theory & typography", details: "Master choosing colors and fonts for good UX." },
+    { step: "User research & testing", details: "Conduct research and test designs with users." },
+    { step: "Create complete UI prototypes", details: "Build detailed, interactive design prototypes." },
+    { step: "Accessibility & usability", details: "Make designs accessible to all users." },
+    { step: "Design system & style guides", details: "Create reusable components and guidelines." }
+  ]
+};
+
+function getTrackFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('track');
+}
+
+function saveProgress(trackName, doneIndexes) {
+  localStorage.setItem(`progress_${trackName}`, JSON.stringify(doneIndexes));
+}
+
+function loadProgress(trackName) {
+  const data = localStorage.getItem(`progress_${trackName}`);
+  return data ? JSON.parse(data) : [];
+}
+
+function checkAllDone() {
+  const steps = document.querySelectorAll('.step');
+  const allDone = [...steps].every(step => step.classList.contains('done'));
+  
+  let msgElem = document.getElementById('congratsMessage');
+  if (!msgElem) {
+    msgElem = document.createElement('div');
+    msgElem.id = 'congratsMessage';
+    msgElem.style.marginTop = '30px';
+    msgElem.style.padding = '15px';
+    msgElem.style.backgroundColor = '#d4edda';
+    msgElem.style.color = '#155724';
+    msgElem.style.border = '1px solid #c3e6cb';
+    msgElem.style.borderRadius = '8px';
+    msgElem.style.textAlign = 'center';
+    msgElem.style.fontWeight = 'bold';
+    document.getElementById('roadmapContainer').after(msgElem);
+  }
+  
+  if(allDone) {
+    msgElem.textContent = "Well done! You've completed this track! Keep going!";
+  } else {
+    msgElem.textContent = "";
+  }
+}
+
+function createRoadmap(trackName) {
+  const container = document.getElementById('roadmapContainer');
+  container.innerHTML = '';
+  if (!trackName || !roadmaps[trackName]) {
+    container.textContent = "Sorry, no roadmap found for this track.";
+    document.getElementById('trackName').textContent = "";
+    return;
+  }
+  
+  document.getElementById('trackName').textContent = `Roadmap for: ${trackName}`;
+  const roadmap = roadmaps[trackName];
+  
+  const doneIndexes = loadProgress(trackName);
+
+  roadmap.forEach((item, i) => {
+    const stepDiv = document.createElement('div');
+    stepDiv.className = 'step';
+    if(doneIndexes.includes(i)) {
+      stepDiv.classList.add('done');
+    }
+    stepDiv.innerHTML = `
+      <div class="step-number">Step ${i+1}</div>
+      <div class="step-title">${item.step}</div>
+      <div class="step-details">${item.details}
+        <button class="doneBtn">${doneIndexes.includes(i) ? "Completed" : "Mark as Done"}</button>
+      </div>
+    `;
+
+    stepDiv.addEventListener('click', (e) => {
+      if(e.target.classList.contains('doneBtn')) return;
+
+      document.querySelectorAll('.step').forEach(s => {
+        if(s !== stepDiv) s.classList.remove('active');
+      });
+      stepDiv.classList.toggle('active');
+    });
+
+    const btn = stepDiv.querySelector('.doneBtn');
+    if(doneIndexes.includes(i)) {
+      btn.disabled = true;
+    }
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if(stepDiv.classList.contains('done')) return;
+      stepDiv.classList.add('done');
+      btn.disabled = true;
+      btn.textContent = "Completed";
+      doneIndexes.push(i);
+      saveProgress(trackName, doneIndexes);
+      checkAllDone();
+    });
+
+    container.appendChild(stepDiv);
+  });
+  checkAllDone();
+}
+
+document.getElementById('backBtn').addEventListener('click', () => {
+  const trackName = getTrackFromURL();
+  if (!trackName) {
+    window.location.href = 'index.html';
+    return;
+  }
+  const confirmClear = confirm("Are you sure you want to clear your progress and go back to home?");
+  if (confirmClear) {
+    localStorage.removeItem(`progress_${trackName}`);
+  }
+  window.location.href = 'index.html';
+});
+
+const userTrack = getTrackFromURL();
+createRoadmap(userTrack);
+</script>
+
+</body>
+</html>

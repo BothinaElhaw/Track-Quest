@@ -1,0 +1,75 @@
+body, html {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f3f3f3;
+  color: #333;
+  text-align: center;
+}
+
+.container {
+  padding: 30px 20px; 
+  max-width: 600px; 
+  width: 100%;
+  margin: 0 auto; 
+}
+
+h1 {
+  color: #0c63bf;
+  font-size: 2.5rem; 
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+.tracks a {
+  color: #0c63bf; 
+  text-decoration: none;
+}
+
+.tracks a:visited {
+  color: #0c63bf;  
+}
+
+.tracks a:hover {
+  text-decoration: underline; 
+}
+
+.tracks {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 30px;
+}
+
+.tracks li {
+  background-color: #cce0ee;
+  margin: 10px 0;
+  padding: 15px;
+  color: #0c63bf;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+#startBtn {
+  padding: 15px 25px;
+  background-color: #0c63bf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+}
+
+#startBtn:hover {
+  background-color: #0c1ebf;
+}

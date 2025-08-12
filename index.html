@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track Quest</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Track Quest</h1>
+    <p class="subtitle">Find your perfect learning track!</p>
+    
+    <h2>Available Tracks</h2>
+    <ul class="tracks">
+      <li><a href="roadmap.html?track=Frontend%20Development">Frontend Development</a></li>
+      <li><a href="roadmap.html?track=Backend%20Development">Backend Development</a></li>
+      <li><a href="roadmap.html?track=Full%20Stack%20Development">Full Stack Development</a></li>
+      <li><a href="roadmap.html?track=Artificial%20Intelligence">Artificial Intelligence</a></li>
+      <li><a href="roadmap.html?track=Machine%20Learning">Machine Learning</a></li>
+      <li><a href="roadmap.html?track=Data%20Science">Data Science</a></li>
+      <li><a href="roadmap.html?track=Data%20Analysis">Data Analysis</a></li>
+      <li><a href="roadmap.html?track=DevOps">DevOps</a></li>
+      <li><a href="roadmap.html?track=UI/UX%20Design">UI/UX Design</a></li>
+    </ul>
+
+    <button id="startBtn">Start Quiz</button>
+  </div>
+
+  <script>
+    document.getElementById('startBtn').addEventListener('click', function() {
+      window.location.href = 'quiz.html'; 
+    });
+  </script>
+</body>
+</html>
+
